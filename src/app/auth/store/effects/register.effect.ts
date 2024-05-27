@@ -10,7 +10,7 @@ import {AuthService} from '../../services/auth.service'
 import {CurrentUserInterface} from '../../../shared/types/currentUser.interface'
 import {of} from 'rxjs'
 import {HttpErrorResponse} from '@angular/common/http'
-import {PersistanceService} from '../../../shared/services/persistance.service'
+import {PersistenceService} from '../../../shared/services/persistance.service'
 import {Router} from '@angular/router'
 
 @Injectable()
@@ -49,7 +49,7 @@ export class RegisterEffect {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private persistanceService: PersistanceService,
+    private persistanceService: PersistenceService,
     private router: Router
   ) {}
 }

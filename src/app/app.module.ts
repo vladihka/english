@@ -10,8 +10,9 @@ import {environment} from '../environments/environment'
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import {EffectsModule} from '@ngrx/effects'
 import {TopBarModule} from './shared/modules/topBar/topBar.module'
-import {PersistanceService} from './shared/services/persistance.service'
+import {PersistenceService} from './shared/services/persistance.service'
 import {AuthInterceptor} from './shared/services/authinterceptor.service'
+import {GlobalFeedModule} from './globalFeed/globalFeed.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,16 +21,17 @@ import {AuthInterceptor} from './shared/services/authinterceptor.service'
     HttpClientModule,
     AppRoutingModule,
     AuthModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
     TopBarModule,
+    GlobalFeedModule,
   ],
   providers: [
-    PersistanceService,
+    PersistenceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

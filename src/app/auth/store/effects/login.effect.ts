@@ -5,7 +5,7 @@ import {AuthService} from '../../services/auth.service'
 import {CurrentUserInterface} from '../../../shared/types/currentUser.interface'
 import {of} from 'rxjs'
 import {HttpErrorResponse} from '@angular/common/http'
-import {PersistanceService} from '../../../shared/services/persistance.service'
+import {PersistenceService} from '../../../shared/services/persistance.service'
 import {Router} from '@angular/router'
 import {
   loginAction,
@@ -15,24 +15,22 @@ import {
 
 @Injectable()
 export class LoginEffect {
-  login$ = createEffect(() =>
-    this.actions$.pipe(
+  login$ = createEffect(() => {
+    return this.actions$.pipe(
       ofType(loginAction),
       switchMap(({request}) => {
         return this.authService.login(request).pipe(
           map((currentUser: CurrentUserInterface) => {
-            this.persistanceService.set('accessToken', currentUser.token)
+            this.persistenceService.set('accountToken', currentUser.token)
             return loginSuccessAction({currentUser})
           }),
-
           catchError((errorResponse: HttpErrorResponse) => {
             return of(loginFailureAction({errors: errorResponse.error.errors}))
           })
         )
       })
     )
-  )
-
+  })
   redirectAfterSubmit$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -47,7 +45,7 @@ export class LoginEffect {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private persistanceService: PersistanceService,
+    private persistenceService: PersistenceService,
     private router: Router
   ) {}
 }

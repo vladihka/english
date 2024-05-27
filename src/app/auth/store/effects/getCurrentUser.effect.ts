@@ -4,42 +4,38 @@ import {catchError, map, switchMap, tap} from 'rxjs/operators'
 import {AuthService} from '../../services/auth.service'
 import {CurrentUserInterface} from '../../../shared/types/currentUser.interface'
 import {of} from 'rxjs'
-import {HttpErrorResponse} from '@angular/common/http'
-import {PersistanceService} from '../../../shared/services/persistance.service'
 import {
   getCurrentUserAction,
   getCurrentUserFailureAction,
   getCurrentUserSuccessAction,
 } from '../actions/getCurrentUser.action'
+import {PersistenceService} from '../../../shared/services/persistance.service'
 
 @Injectable()
 export class GetCurrentUserEffect {
-  getCurrentUser$ = createEffect(() =>
-    this.actions$.pipe(
+  getCurrentUser$ = createEffect(() => {
+    return this.actions$.pipe(
       ofType(getCurrentUserAction),
       switchMap(() => {
-        const token = this.persistanceService.get('accessToken')
-
+        const token = this.persistenceService.get('accountToken')
         if (!token) {
           return of(getCurrentUserFailureAction())
         }
-
         return this.authService.getCurrentUser().pipe(
           map((currentUser: CurrentUserInterface) => {
             return getCurrentUserSuccessAction({currentUser})
           }),
-
           catchError(() => {
             return of(getCurrentUserFailureAction())
           })
         )
       })
     )
-  )
+  })
 
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private persistanceService: PersistanceService
+    private persistenceService: PersistenceService
   ) {}
 }
