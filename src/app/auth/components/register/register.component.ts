@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core'
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 import {select, Store} from '@ngrx/store'
-import {registerAction} from '../../store/actions'
 import {Observable} from 'rxjs'
 import {
   isSubmittingSelector,
@@ -11,6 +10,7 @@ import {AuthService} from '../../services/auth.service'
 import {CurrentUserInterface} from '../../../shared/types/currentUser.interface'
 import {RegisterRequestInterface} from '../../types/registerRequest.interface'
 import {BackendErrorsInterface} from '../../../shared/types/backendErrors.interface'
+import {registerAction} from '../../store/actions/register.action'
 
 @Component({
   selector: 'mc-register',

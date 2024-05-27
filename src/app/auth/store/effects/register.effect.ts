@@ -24,6 +24,7 @@ export class RegisterEffect {
             this.persistanceService.set('accessToken', currentUser.token)
             return registerSuccessAction({currentUser})
           }),
+
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               registerFailureAction({errors: errorResponse.error.errors})
@@ -39,7 +40,6 @@ export class RegisterEffect {
       this.actions$.pipe(
         ofType(registerSuccessAction),
         tap(() => {
-          console.log('succ')
           this.router.navigateByUrl('/')
         })
       ),
