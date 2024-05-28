@@ -11,6 +11,7 @@ import {ErrorMessageModule} from '../errorMessage/errorMessage'
 import {LoadingModule} from '../loading/loading.module'
 import {PaginationComponent} from '../pagination/components/pagination/pagination.component'
 import {PaginationModule} from '../pagination/pagination.module'
+import {TagListModule} from '../tagList/tagList.module'
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import {PaginationModule} from '../pagination/pagination.module'
     ErrorMessageModule,
     PaginationModule,
     LoadingModule,
+    TagListModule,
   ],
   declarations: [FeedComponent],
   exports: [FeedComponent],
