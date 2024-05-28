@@ -8,10 +8,9 @@ import {
   isLoadingSelector,
 } from '../../store/selectors'
 import {getFeedAction} from '../../store/actions/getFeed.action'
-import {asap} from 'rxjs/internal/scheduler/asap'
-import {async} from '@angular/core/testing'
 import {environment} from '../../../../../../environments/environment'
 import {ActivatedRoute, Params, Router} from '@angular/router'
+import {parseUrl, stringify} from 'query-string'
 
 @Component({
   selector: 'mc-feed',
@@ -37,12 +36,20 @@ export class FeedComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initializeValues()
-    this.fetchData()
     this.initializeListeners()
   }
 
   ngOnDestroy(): void {
     this.queryParamsSubscription.unsubscribe()
+  }
+
+  initializeListeners(): void {
+    this.queryParamsSubscription = this.route.queryParams.subscribe(
+      (params: Params) => {
+        this.currentPage = Number(params.page || '1')
+        this.fetchFeed()
+      }
+    )
   }
 
   initializeValues(): void {
@@ -52,19 +59,15 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.baseUrl = this.router.url.split('?')[0]
   }
 
-  initializeListeners(): void {
-    this.queryParamsSubscription = this.route.queryParams.subscribe(
-      (params: Params) => {
-        this.currentPage = Number(params.page || '1')
-        console.log('currentPage', this.currentPage)
-      }
-    )
+  fetchFeed(): void {
+    const offset = this.currentPage * this.limit - this.limit
+    const parsedUrl = parseUrl(this.apiUrlProps)
+    const stringifiedParams = stringify({
+      limit: this.limit,
+      offset,
+      ...parsedUrl.query,
+    })
+    const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`
+    this.store.dispatch(getFeedAction({url: apiUrlWithParams}))
   }
-
-  fetchData(): void {
-    this.store.dispatch(getFeedAction({url: this.apiUrlProps}))
-  }
-
-  protected readonly asap = asap
-  protected readonly async = async
 }
