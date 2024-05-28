@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser'
-import {isDevMode, NgModule} from '@angular/core'
+import {NgModule} from '@angular/core'
 
 import {AppRoutingModule} from './app-routing.module'
 import {AppComponent} from './app.component'
@@ -14,9 +14,9 @@ import {PersistenceService} from './shared/services/persistance.service'
 import {AuthInterceptor} from './shared/services/authinterceptor.service'
 import {GlobalFeedModule} from './globalFeed/globalFeed.module'
 import {routerReducer, StoreRouterConnectingModule} from '@ngrx/router-store'
-import {YourFeedComponent} from './yourFeed/components/yourFeed/yourFeed.component'
 import {YourFeedModule} from './yourFeed/yourFeed.module'
 import {TagFeedModule} from './tagFeed/tagFeed.module'
+import {ArticleModule} from './article/article.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,6 +36,7 @@ import {TagFeedModule} from './tagFeed/tagFeed.module'
     GlobalFeedModule,
     YourFeedModule,
     TagFeedModule,
+    ArticleModule,
   ],
   providers: [
     PersistenceService,

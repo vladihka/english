@@ -7,7 +7,6 @@ import {
   validationErrorsSelector,
 } from '../../store/selectors'
 import {AuthService} from '../../services/auth.service'
-import {CurrentUserInterface} from '../../../shared/types/currentUser.interface'
 import {RegisterRequestInterface} from '../../types/registerRequest.interface'
 import {BackendErrorsInterface} from '../../../shared/types/backendErrors.interface'
 import {registerAction} from '../../store/actions/register.action'

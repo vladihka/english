@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core'
 import {Actions, createEffect, ofType} from '@ngrx/effects'
-import {getFeedSuccessAction} from '../../../shared/modules/feed/store/actions/getFeed.action'
 import {catchError, map, switchMap} from 'rxjs/operators'
 import {of} from 'rxjs'
 import {ArticleService as SharedArticleService} from '../../../shared/services/article.service'
