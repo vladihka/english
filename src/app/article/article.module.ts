@@ -13,7 +13,7 @@ import {reducers} from './store/reducers'
 import {ArticleService} from './services/article.service'
 import {DeleteArticleEffect} from './store/effects/deleteArticle.effect'
 
-const routes: Routes = [
+const routes = [
   {
     path: 'articles/:slug',
     component: ArticleComponent,
@@ -23,15 +23,14 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    EffectsModule.forFeature([GetArticleEffect, DeleteArticleEffect]),
+    RouterModule.forChild(routes),
     StoreModule.forFeature('article', reducers),
+    EffectsModule.forFeature([GetArticleEffect, DeleteArticleEffect]),
     LoadingModule,
     ErrorMessageModule,
-    RouterModule,
     TagListModule,
-    RouterModule.forChild(routes),
   ],
   declarations: [ArticleComponent],
-  providers: [SharedArticleService, ArticleService],
+  providers: [ArticleService, SharedArticleService],
 })
 export class ArticleModule {}

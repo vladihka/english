@@ -23,7 +23,7 @@ export class ArticleFormComponent implements OnInit {
     this.initializeForm()
   }
 
-  initializeForm() {
+  initializeForm(): void {
     this.form = this.fb.group({
       title: this.initialValuesProps.title,
       description: this.initialValuesProps.description,
@@ -33,6 +33,10 @@ export class ArticleFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.articleSubmitEvent.emit(this.form.value)
+    const articleInput: ArticleInputInterface = {
+      ...this.form.value,
+      tagList: this.form.value.tagList.split(' '),
+    }
+    this.articleSubmitEvent.emit(articleInput)
   }
 }

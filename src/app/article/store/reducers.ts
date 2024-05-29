@@ -8,10 +8,11 @@ import {
 } from './actions/getArticle.action'
 
 const initialState: ArticleStateInterface = {
+  data: null,
   isLoading: false,
   error: null,
-  data: null,
 }
+
 const articleReducer = createReducer(
   initialState,
   on(

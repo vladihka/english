@@ -21,27 +21,21 @@ import {deleteArticleAction} from '../../store/actions/deleteArticle.action'
 })
 export class ArticleComponent implements OnInit, OnDestroy {
   slug: string
-  article: ArticleInterface | null
+  article: ArticleInterface
   articleSubscription: Subscription
   isLoading$: Observable<boolean>
   error$: Observable<string | null>
   isAuthor$: Observable<boolean>
 
   constructor(private store: Store, private route: ActivatedRoute) {}
+
   ngOnInit(): void {
     this.initializeValues()
     this.initializeListeners()
     this.fetchData()
   }
-  initializeListeners(): void {
-    this.articleSubscription = this.store
-      .pipe(select(articleSelector))
-      .subscribe((article: ArticleInterface | null) => {
-        this.article = article
-      })
-  }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.articleSubscription.unsubscribe()
   }
 
@@ -67,6 +61,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
     )
   }
 
+  initializeListeners(): void {
+    this.articleSubscription = this.store
+      .pipe(select(articleSelector))
+      .subscribe((article: ArticleInterface | null) => {
+        this.article = article
+      })
+  }
+
   fetchData(): void {
     this.store.dispatch(getArticleAction({slug: this.slug}))
   }
@@ -74,6 +76,4 @@ export class ArticleComponent implements OnInit, OnDestroy {
   deleteArticle(): void {
     this.store.dispatch(deleteArticleAction({slug: this.slug}))
   }
-
-  protected readonly deleteArticleAction = deleteArticleAction
 }

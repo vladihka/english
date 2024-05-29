@@ -27,11 +27,11 @@ import {CreateArticleModule} from './createArticle/createArticle.module'
     AppRoutingModule,
     AuthModule,
     StoreModule.forRoot({router: routerReducer}),
+    StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
-    StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([]),
     TopBarModule,
     GlobalFeedModule,

@@ -5,7 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms'
 import {BackendErrorMessagesModule} from '../backendErrorMessages/backendErrorMessages.module'
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, BackendErrorMessagesModule],
+  imports: [CommonModule, BackendErrorMessagesModule, ReactiveFormsModule],
   declarations: [ArticleFormComponent],
   exports: [ArticleFormComponent],
 })

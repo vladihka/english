@@ -12,21 +12,22 @@ import {Router} from '@angular/router'
 
 @Injectable()
 export class DeleteArticleEffect {
-  deleteArticle$ = createEffect(() => {
-    return this.actions$.pipe(
+  deleteArticle$ = createEffect(() =>
+    this.actions$.pipe(
       ofType(deleteArticleAction),
       switchMap(({slug}) => {
         return this.articleService.deleteArticle(slug).pipe(
           map(() => {
             return deleteArticleSuccessAction()
           }),
+
           catchError(() => {
             return of(deleteArticleFailureAction())
           })
         )
       })
     )
-  })
+  )
 
   redirectAfterDelete$ = createEffect(
     () =>
