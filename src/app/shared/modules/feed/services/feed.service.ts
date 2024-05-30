@@ -7,9 +7,9 @@ import {environment} from '../../../../../environments/environment'
 @Injectable()
 export class FeedService {
   constructor(private http: HttpClient) {}
+
   getFeed(url: string): Observable<GetFeedResponseInterface> {
     const fullUrl = environment.apiUrl + url
-
     return this.http.get<GetFeedResponseInterface>(fullUrl)
   }
 }
