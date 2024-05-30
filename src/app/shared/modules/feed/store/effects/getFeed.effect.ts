@@ -12,8 +12,8 @@ import {GetFeedResponseInterface} from '../../types/getFeedResponse.interface'
 
 @Injectable()
 export class GetFeedEffect {
-  getFeed$ = createEffect(() => {
-    return this.actions$.pipe(
+  getFeed$ = createEffect(() =>
+    this.actions$.pipe(
       ofType(getFeedAction),
       switchMap(({url}) => {
         return this.feedService.getFeed(url).pipe(
@@ -26,7 +26,7 @@ export class GetFeedEffect {
         )
       })
     )
-  })
+  )
 
   constructor(private actions$: Actions, private feedService: FeedService) {}
 }
