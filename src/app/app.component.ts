@@ -4,8 +4,8 @@ import {getCurrentUserAction} from './auth/store/actions/getCurrentUser.action'
 
 @Component({
   selector: ' app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
   constructor(private store: Store) {}

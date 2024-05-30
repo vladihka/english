@@ -17,13 +17,14 @@ import {
   getCurrentUserSuccessAction,
 } from './actions/getCurrentUser.action'
 import {act} from '@ngrx/effects'
+import {updateCurrentUserSuccessAction} from './actions/updateCurentUser.action'
 
 const initialState: AuthStateInterface = {
   isSubmitting: false,
   isLoading: false,
   currentUser: null,
-  isLoggedIn: null,
   validationErrors: null,
+  isLoggedIn: null,
 }
 
 const authReducer = createReducer(
@@ -101,6 +102,13 @@ const authReducer = createReducer(
       isLoading: false,
       isLoggedIn: false,
       currentUser: null,
+    })
+  ),
+  on(
+    updateCurrentUserSuccessAction,
+    (state, action): AuthStateInterface => ({
+      ...state,
+      currentUser: action.currentUser,
     })
   )
 )

@@ -17,7 +17,6 @@ import {deleteArticleAction} from '../../store/actions/deleteArticle.action'
 @Component({
   selector: 'mc-article',
   templateUrl: 'article.component.html',
-  styleUrls: ['article.component.scss'],
 })
 export class ArticleComponent implements OnInit, OnDestroy {
   slug: string
