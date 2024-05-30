@@ -9,9 +9,9 @@ import {FeedService} from './services/feed.service'
 import {RouterModule} from '@angular/router'
 import {ErrorMessageModule} from '../errorMessage/errorMessage'
 import {LoadingModule} from '../loading/loading.module'
-import {PaginationComponent} from '../pagination/components/pagination/pagination.component'
 import {PaginationModule} from '../pagination/pagination.module'
 import {TagListModule} from '../tagList/tagList.module'
+import {AddToFavoriteModule} from '../addToFavorites/addToFavorite.module'
 
 @NgModule({
   imports: [
@@ -20,9 +20,10 @@ import {TagListModule} from '../tagList/tagList.module'
     StoreModule.forFeature('feed', reducers),
     RouterModule,
     ErrorMessageModule,
-    PaginationModule,
     LoadingModule,
+    PaginationModule,
     TagListModule,
+    AddToFavoriteModule,
   ],
   declarations: [FeedComponent],
   exports: [FeedComponent],
