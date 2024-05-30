@@ -6,7 +6,7 @@ import {SettingsStateInterface} from '../types/settingsState.interface'
 export const settingsFeatureSelector = createFeatureSelector<
   AppStateInterface,
   SettingsStateInterface
->('auth')
+>('settings')
 
 export const isSubmittingSelector = createSelector(
   settingsFeatureSelector,

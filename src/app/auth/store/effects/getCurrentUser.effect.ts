@@ -13,29 +13,32 @@ import {PersistenceService} from '../../../shared/services/persistance.service'
 
 @Injectable()
 export class GetCurrentUserEffect {
-  getCurrentUser$ = createEffect(() => {
-    return this.actions$.pipe(
+  getCurrentUser$ = createEffect(() =>
+    this.actions$.pipe(
       ofType(getCurrentUserAction),
       switchMap(() => {
-        const token = this.persistenceService.get('accountToken')
+        const token = this.persistanceService.get('accessToken')
+
         if (!token) {
           return of(getCurrentUserFailureAction())
         }
+
         return this.authService.getCurrentUser().pipe(
           map((currentUser: CurrentUserInterface) => {
             return getCurrentUserSuccessAction({currentUser})
           }),
+
           catchError(() => {
             return of(getCurrentUserFailureAction())
           })
         )
       })
     )
-  })
+  )
 
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private persistenceService: PersistenceService
+    private persistanceService: PersistenceService
   ) {}
 }

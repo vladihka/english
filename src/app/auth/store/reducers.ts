@@ -18,6 +18,7 @@ import {
 } from './actions/getCurrentUser.action'
 import {act} from '@ngrx/effects'
 import {updateCurrentUserSuccessAction} from './actions/updateCurentUser.action'
+import {logoutAction} from './actions/sync.action'
 
 const initialState: AuthStateInterface = {
   isSubmitting: false,
@@ -109,6 +110,14 @@ const authReducer = createReducer(
     (state, action): AuthStateInterface => ({
       ...state,
       currentUser: action.currentUser,
+    })
+  ),
+  on(
+    logoutAction,
+    (state): AuthStateInterface => ({
+      ...state,
+      ...initialState,
+      isLoggedIn: false,
     })
   )
 )

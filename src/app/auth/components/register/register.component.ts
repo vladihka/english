@@ -14,18 +14,14 @@ import {registerAction} from '../../store/actions/register.action'
 @Component({
   selector: 'mc-register',
   templateUrl: './register.component.html',
-  styleUrls: ['register.component.scss'],
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup
   isSubmitting$: Observable<boolean>
   backendErrors$: Observable<BackendErrorsInterface | null>
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store,
-    private authService: AuthService
-  ) {}
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
     this.initializeForm()
@@ -38,21 +34,19 @@ export class RegisterComponent implements OnInit {
   }
 
   initializeForm(): void {
+    console.log('initializeForm')
     this.form = this.fb.group({
       username: ['', Validators.required],
-      email: '',
-      password: '',
+      email: ['', Validators.required],
+      password: ['', Validators.required],
     })
-    //console.log(this.form.valid)
   }
 
   onSubmit(): void {
-    console.log(this.form.value)
+    console.log('submit', this.form.value, this.form.valid)
     const request: RegisterRequestInterface = {
       user: this.form.value,
     }
     this.store.dispatch(registerAction({request}))
   }
-
-  protected readonly onsubmit = onsubmit
 }

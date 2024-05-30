@@ -11,7 +11,7 @@ const initialState: SettingsStateInterface = {
   validationErrors: null,
 }
 
-const settingsReducer = createReducer(
+const settingsReducers = createReducer(
   initialState,
   on(
     updateCurrentUserAction,
@@ -36,6 +36,7 @@ const settingsReducer = createReducer(
     })
   )
 )
+
 export function reducers(state: SettingsStateInterface, action: Action) {
-  return settingsReducer(state, action)
+  return settingsReducers(state, action)
 }

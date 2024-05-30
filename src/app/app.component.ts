@@ -3,7 +3,7 @@ import {Store} from '@ngrx/store'
 import {getCurrentUserAction} from './auth/store/actions/getCurrentUser.action'
 
 @Component({
-  selector: ' app-root',
+  selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })

@@ -33,6 +33,10 @@ export class ArticleFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.articleSubmitEvent.emit(this.form.value)
+    const articleInput: ArticleInputInterface = {
+      ...this.form.value,
+      tagList: this.form.value.tagList.split(' '),
+    }
+    this.articleSubmitEvent.emit(articleInput)
   }
 }

@@ -10,7 +10,6 @@ import {CurrentUserInterface} from '../../../shared/types/currentUser.interface'
 import {HttpErrorResponse} from '@angular/common/http'
 import {of} from 'rxjs'
 import {AuthService} from '../../services/auth.service'
-import {PersistenceService} from '../../../shared/services/persistance.service'
 
 @Injectable()
 export class UpdateCurrentUserEffect {
@@ -20,10 +19,8 @@ export class UpdateCurrentUserEffect {
       switchMap(({currentUserInput}) => {
         return this.authService.updateCurrentUser(currentUserInput).pipe(
           map((currentUser: CurrentUserInterface) => {
-            this.persistenceService.set('accessToken', currentUser.token)
             return updateCurrentUserSuccessAction({currentUser})
           }),
-
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               updateCurrentUserFailureAction({
@@ -36,9 +33,5 @@ export class UpdateCurrentUserEffect {
     )
   )
 
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private persistenceService: PersistenceService
-  ) {}
+  constructor(private actions$: Actions, private authService: AuthService) {}
 }

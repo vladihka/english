@@ -15,22 +15,24 @@ import {
 
 @Injectable()
 export class LoginEffect {
-  login$ = createEffect(() => {
-    return this.actions$.pipe(
+  login$ = createEffect(() =>
+    this.actions$.pipe(
       ofType(loginAction),
       switchMap(({request}) => {
         return this.authService.login(request).pipe(
           map((currentUser: CurrentUserInterface) => {
-            this.persistenceService.set('accountToken', currentUser.token)
+            this.persistanceService.set('accessToken', currentUser.token)
             return loginSuccessAction({currentUser})
           }),
+
           catchError((errorResponse: HttpErrorResponse) => {
             return of(loginFailureAction({errors: errorResponse.error.errors}))
           })
         )
       })
     )
-  })
+  )
+
   redirectAfterSubmit$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -45,7 +47,7 @@ export class LoginEffect {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private persistenceService: PersistenceService,
+    private persistanceService: PersistenceService,
     private router: Router
   ) {}
 }
