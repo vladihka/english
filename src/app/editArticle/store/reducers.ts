@@ -47,6 +47,7 @@ const editArticleReducer = createReducer(
     (state): EditArticleStateInterface => ({
       ...state,
       isLoading: true,
+      article: null,
     })
   ),
   on(
