@@ -2,6 +2,8 @@
   "name": "my-project",
   "version": "0.0.0",
   "scripts": {
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && ng build",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
